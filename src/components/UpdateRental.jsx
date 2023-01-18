@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import rentalFacade from "../utils/rentalFacade.js";
-import tenantFacade from "../utils/tenantFacade.js";
 
-function UpdateRental({rentalId, setErrorMessage}) {
+function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
     const [rental, setRental] = useState({});
     const [tenantData, setTenantData] = useState([]);
     const [houseData, setHouseData] = useState([]);
     const [editTenant, setEditTenant] = useState(false)
     const [editHouse, setEditHouse] = useState(false)
-    const [refresh, setRefresh] = useState(false);
+    // const [refresh, setRefresh] = useState();
     const [inputs, setInputs] = useState({});
 
     useEffect(() => {
@@ -20,15 +19,15 @@ function UpdateRental({rentalId, setErrorMessage}) {
         getData();
         console.log(rental)
     }, [refresh]);
-    useEffect(() => {
-        const getData = async () => {
-            await tenantFacade.getAllTenats((data) => {
-                setRental(data)
-            }, setErrorMessage)
-        }
-        getData();
-        console.log(rental)
-    }, [refresh]);
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         await tenantFacade.getAllTenats((data) => {
+    //             setRental(data)
+    //         }, setErrorMessage)
+    //     }
+    //     getData();
+    //     console.log(rental)
+    // }, [refresh]);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -59,7 +58,6 @@ function UpdateRental({rentalId, setErrorMessage}) {
 
     return (
         <div className="tableBody">
-            {console.log(rental)}
             <h1>update a rental</h1>
             <form onSubmit={handleSubmit}>
                 <table>
@@ -105,7 +103,6 @@ function UpdateRental({rentalId, setErrorMessage}) {
                                 // const tenant1 = tenantData[inputs.tenant - 1]
                                 // console.log(tenant1)
                                 // const house = houseData[inputs.house - 1]
-                                console.log();
 
                                 const json = {
                                     "id": rentalId,

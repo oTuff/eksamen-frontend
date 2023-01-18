@@ -1,11 +1,12 @@
 import {useState} from "react";
+import rentalFacade from "../utils/rentalFacade.js";
 
-function CreateRental({setErrorMessage}) {
+function CreateRental({refresh, setRefresh ,setErrorMessage}) {
     const [tenantData, setTenantData] = useState([]);
     const [houseData, setHouseData] = useState([]);
     const [editTenant, setEditTenant] = useState(false)
     const [editHouse, setEditHouse] = useState(false)
-    const [refresh, setRefresh] = useState(false);
+    // const [refresh, setRefresh] = useState(false);
     const [inputs, setInputs] = useState({});
 
     const handleChange = (event) => {

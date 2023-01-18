@@ -32,7 +32,7 @@ function AdminPanel({setErrorMessage}) {
 
     return (<>
         {/*update rental:*/}
-        {showEdit ? (<UpdateRental rentalId={chosenRental}/>) : (<></>)}
+        {showEdit ? (<UpdateRental rentalId={chosenRental} refresh={refresh} setRefresh={setRefresh}/>) : (<></>)}
 
         {/*create:*/}
         <div className="tableBody">
@@ -42,12 +42,13 @@ function AdminPanel({setErrorMessage}) {
                         setShowCreate(false)
                     }}>cancel
                     </button>
-                    <CreateRental/>
+                    <CreateRental refresh={refresh} setRefresh={setRefresh}/>
                 </>
             ) : (
                 <>
                     <button onClick={() => {
                         setShowCreate(true)
+                        console.log(refresh)
                     }}>create rental
                     </button>
                 </>)}
