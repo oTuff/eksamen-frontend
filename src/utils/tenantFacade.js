@@ -1,7 +1,7 @@
 import apiFacade from "./apiFacade.js";
 import {API_URL} from "../../settings.js";
 
-function TenatFacade(){
+function TenantFacade(){
 
     const getAllTenats = (updateAction, setErrorMessage) => {
         return apiFacade.fetchData("tenats",updateAction,setErrorMessage)
@@ -11,5 +11,5 @@ function TenatFacade(){
         getAllTenats
     }
 }
-const tenatFacade = TenatFacade();
+const tenatFacade = TenantFacade();
 export default tenatFacade;

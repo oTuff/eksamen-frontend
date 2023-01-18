@@ -63,12 +63,12 @@ function UserPanel() {
                     <th>deposit</th>
                     <th>contact person</th>
                     <th>house info</th>
-                      {showHouse ? (
-                                <>
-                                    <th>number of room</th>
-                                    <th>address</th>
-                                </>
-                            ) : (<div></div>)}
+                    {showHouse ? (
+                        <>
+                            <th>number of room</th>
+                            <th>address</th>
+                        </>
+                    ) : (<div></div>)}
                 </tr>
                 </thead>
                 <tbody>
@@ -85,12 +85,13 @@ function UserPanel() {
                                 <button onClick={() => {
                                     setShowHouse(!showHouse)
                                     // if(selectedHouse ===0) {
-                                        setSelectedHouse(data.id)
+                                    setSelectedHouse(data.id)
                                     // }else{
                                     //     setSelectedHouse(0)
                                     // }
 
-                                } }>toggle house details</button>
+                                }}>toggle house details
+                                </button>
                             </td>
                             {showHouse ? (
                                 <>

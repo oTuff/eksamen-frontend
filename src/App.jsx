@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import AdminPanel from "./pages/AdminPanel.jsx";
 import trainingFacade from "./utils/trainingFacade.js";
+import facade from "./utils/rentalFacade.js"
 import UserPanel from "./pages/UserPanel.jsx";
 import Profile from "./pages/Profile.jsx";
 import loginFacade from "./utils/loginFacade.js";
