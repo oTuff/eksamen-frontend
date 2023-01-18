@@ -13,6 +13,7 @@ import loginFacade from "./utils/loginFacade.js";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false)
+    const [errorMessage, setErrorMessage] = useState()
 
     //checks if therer is a jwt token and sets login state(fixes the problem where refreshing the page resets the loggedIn state)
     useEffect(() => {
@@ -23,13 +24,14 @@ function App() {
     return (
         <div className="App">
             <Header setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>
+            <nav className="errormsg">{errorMessage}</nav>
             <Routes>
                 <Route path="/" element={<Home userFacade={userFacade} setLoggedIn={setLoggedIn} loggedIn={loggedIn}/>}/>
                 <Route path="profile" element={<Profile setLoggedIn={setLoggedIn}/>}/>
                 <Route path="signin" element={!loggedIn ? <SignIn setLoggedIn={setLoggedIn}/> : <Home loggedIn={loggedIn}/>}/>
                 <Route path="signup" element={<SignUp setLoggedIn={setLoggedIn}/>}/>
                 <Route path="userpanel" element={userFacade.hasUserAccess("user",loggedIn)&&<UserPanel/>}></Route>
-                <Route path="admin-panel" element={userFacade.hasUserAccess('admin', loggedIn)&&<AdminPanel trainingFacade={trainingFacade} loggedIn={loggedIn}/>}/>
+                <Route path="admin-panel" element={userFacade.hasUserAccess('admin', loggedIn)&&<AdminPanel loggedIn={loggedIn} setErrorMessage={setErrorMessage}/>}/>
                 <Route path="*" element={<h1>Page Not Found !!!!</h1>}/>
             </Routes>
         </div>

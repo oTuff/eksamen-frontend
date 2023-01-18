@@ -5,6 +5,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
+.errormsg{
+    background-color: lightcoral;
+}
+
 .topnav {
     overflow: hidden;
     background-color: #dedede;

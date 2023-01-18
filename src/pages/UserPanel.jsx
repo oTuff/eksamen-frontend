@@ -81,6 +81,7 @@ function UserPanel() {
                             <td>{data.rentalDeposit}</td>
                             <td>{data.rentalContactPerson}</td>
                             <td>
+                                {/*todo: house info should maybe be its own separate site? */}
                                 <button onClick={() => {
                                     setShowHouse(!showHouse)
                                     // if(selectedHouse ===0) {
