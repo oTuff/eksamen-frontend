@@ -1,21 +1,31 @@
 import React, {useEffect, useState} from 'react';
-import trainingFacade from "../utils/trainingFacade.js";
+import rentalFacade from "../utils/rentalFacade.js";
 import userFacade from "../utils/userFacade.js";
 
 function UserPanel() {
-    const [myTraining, setMyTraining] = useState([]);
+    const [tenantId, setTenantId] = useState()
+    const [rentals, setRentals] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
-    const user = userFacade.getUserName();
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         await trainingFacade.getTrainingSessionsByUser(user, (data) => {
+    //             setMyTraining(data)
+    //         }, "Error can't fetch user's training sessions!")
+    //     }
+    //     getData();
+    // }, [refresh]);
 
-    useEffect(() => {
-        const getData = async () => {
-            await trainingFacade.getTrainingSessionsByUser(user, (data) => {
-                setMyTraining(data)
-            }, "Error can't fetch user's training sessions!")
-        }
-        getData();
-    }, [refresh]);
+    const getRentals = (event) => {
+        rentalFacade.getRentalsByTenant(tenantId).then((data)=>{setRentals(data)})
+        event.preventDefault();
+    }
+
+    const handleChange = (event) => {
+        const value = event.target.value;
+        console.log(value)
+        setTenantId(event.target.value)
+    }
 
     const handleRefresh = (evt) => {
         evt.preventDefault
@@ -23,39 +33,34 @@ function UserPanel() {
 
     return (
         <div className="tableBody">
-            <h1>My Training Schedule</h1>
+            <h1>Rentals</h1>
+           <h1><form onSubmit={getRentals}>
+                <td>get rentals by tenant id:<input type="number" placeholder={"tenant id"} onChange={handleChange} name={"title"} maxLength={45}/></td>
+                <button onClick={getRentals}>find rentals</button>
+           </form></h1>
             <table>
                 <thead>
                 <tr className={"blue"}>
-                    <th>TITLE</th>
-                    <th>TIME</th>
-                    <th>DATE</th>
-                    <th>FULL ADDRESS</th>
-                    <th>CATEGORY</th>
-                    <th>PARTICIPANTS</th>
-                    <td>DEREGISTER</td>
+                    <th>start date</th>
+                    <th>end date</th>
+                    <th>annual price</th>
+                    <th>deposit</th>
+                    <th>contact person</th>
+                    <th>number of room</th>
+                    <th>address</th>
                 </tr>
                 </thead>
                 <tbody>
-                {myTraining.map((data) => {
+                {rentals.map((data) => {
                     return (
                         <tr key={data.id}>
-                            <td>{data.title}</td>
-                            <td>{data.time}</td>
-                            <th>{data.date}</th>
-                            <th>{data.fullAddress}</th>
-                            <th>{data.category.categoryName}</th>
-                            <td>
-                                <p>{data.users.length}/{data.maxParticipants}</p>
-                            </td>
-                            <td>
-                                <button onSubmit={handleRefresh} onClick={() => {
-                                    // userFacade.removeUserToTrainingSession(userFacade.getUserName(), data.id).then(() => {
-                                        setRefresh(!refresh)
-                                    // })
-                                }}>Deregister
-                                </button>
-                            </td>
+                            <td>{data.rentalStartDate.year}-{data.rentalStartDate.month}-{data.rentalStartDate.day}</td>
+                            <td>{data.rentalEndDate.year}-{data.rentalEndDate.month}-{data.rentalEndDate.day}</td>
+                            <td>{data.rentalPriceAnnual}</td>
+                            <td>{data.rentalDeposit}</td>
+                            <td>{data.rentalContactPerson}</td>
+                            <td>{data.houseHouse.houseNumberOfRooms}</td>
+                            <td>{data.houseHouse.address.streetAddress}, {data.houseHouse.address.cityInfo.zipCode} {data.houseHouse.address.cityInfo.cityName}</td>
                         </tr>
                     )
                 })}
