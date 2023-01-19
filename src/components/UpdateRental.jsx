@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import rentalFacade from "../utils/rentalFacade.js";
+import homeFacade from "../utils/homeFacade.js";
 
 function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
     const [rental, setRental] = useState({});
@@ -19,15 +20,17 @@ function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
         getData();
         console.log(rental)
     }, [refresh]);
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         await tenantFacade.getAllTenats((data) => {
-    //             setRental(data)
-    //         }, setErrorMessage)
-    //     }
-    //     getData();
-    //     console.log(rental)
-    // }, [refresh]);
+
+    useEffect(() => {
+        const getData = async () => {
+            await homeFacade.getAllHomes((data) => {
+                setHouseData(data)
+            }, setErrorMessage)
+        }
+        getData();
+        console.log(houseData);
+        console.log(rental)
+    }, [refresh]);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -47,13 +50,13 @@ function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
     //         )
     //     }, this);
     //
-    // let houseList = houseData.length > 0
-    //     && houseData.map((item) => {
-    //         return (
-    //             <option key={item.id}
-    //                     value={item.id}>{item.address.streetAddress},{item.address.cityInfo.zipCode} {item.address.cityInfo.cityName}</option>
-    //         )
-    //     }, this);
+    let houseList = houseData.length > 0
+        && houseData.map((item) => {
+            return (
+                <option key={item.id}
+                        value={item.id}>{item.address.streetAddress},{item.address.cityInfo.zipCode} {item.address.cityInfo.cityName}</option>
+            )
+        }, this);
 
 
     return (
@@ -92,7 +95,7 @@ function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
                         <td>
                             <select name="house" onChange={handleChange}>
                                 <option disabled={true} selected={true}>Choose house</option>
-                                {/*{houseList}*/}
+                                {houseList}
                             </select>
                             <p>or</p>
                             <button onClick={() => setEditHouse(!editHouse)}>add/edit a new house</button>
@@ -100,9 +103,14 @@ function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
 
                         <td>
                             <button onClick={() => {
-                                // const tenant1 = tenantData[inputs.tenant - 1]
-                                // console.log(tenant1)
-                                // const house = houseData[inputs.house - 1]
+                                // const chosenHouse = houseList.find((house) => house.id === inputs.house);
+                                // gethousby id api method
+                                // console.log(inputs.house)
+                                // console.log((chosenHouse))
+                                // if (inputs.house >0){
+                                //     setInputs(values => ({...values, ["houseNumberOfRooms"]: chosenHouse.houseNumberOfRooms}))//..osv
+                                //
+                                // }
 
                                 const json = {
                                     "id": rentalId,
@@ -120,6 +128,7 @@ function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
                                     "rentalDeposit": inputs.rentalDeposit,
                                     "rentalContactPerson": inputs.rentalContactPerson,
                                     "houseHouse": {
+                                        "id": inputs.house,
                                         "houseNumberOfRooms": inputs.houseNumberOfRooms,
                                         "address": {
                                             "streetAddress": inputs.streetAddress,
@@ -130,6 +139,7 @@ function UpdateRental({rentalId, refresh, setRefresh, setErrorMessage}) {
                                     },
                                     "tenants": [
                                         {
+                                            // "id": inputs.tenant,
                                             "tenantName": inputs.tenantName,
                                             "tenantPhone": inputs.tenantPhone,
                                             "tenantJob": inputs.tenantPhone

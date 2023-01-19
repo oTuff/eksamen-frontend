@@ -4,20 +4,44 @@ import "../styles/main.css";
 function Home({loggedIn, setLoggedIn}) {
 
     return (
-        <div>
-            <div className="contentleft">
-                <h2>About me</h2>
-                <p>
-                    Join me now, and let me help you!
-                </p>
-            </div>
+        <div className="tableBody">
+            <h2>Home Page</h2>
+            <table>
+                <tr className={"blue"}>
+                    <th>method</th>
+                    <th>endpoint</th>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/api/rentals</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>api/rentals/houses</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/api/rentals/tenants/[id]</td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>/api/[id]</td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>api/rentals</td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>api/rentals</td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>/api/rentals/[id]</td>
+                </tr>
 
-            <div className="contentright">
-                <h2>Contact</h2>
-                <p><strong>Phone Number:</strong> <br/>29922992</p>
-                <p><strong>Based in:</strong> <br/> Denmark</p>
-                <p><strong>Location:</strong> <br/> Nørgaardsvej 30 - Kongens Lyngby, 2800</p>
-            </div>
+
+            </table>
         </div>
     );
 }

@@ -1,5 +1,6 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import rentalFacade from "../utils/rentalFacade.js";
+import homeFacade from "../utils/homeFacade.js";
 
 function CreateRental({refresh, setRefresh ,setErrorMessage}) {
     const [tenantData, setTenantData] = useState([]);
@@ -8,6 +9,16 @@ function CreateRental({refresh, setRefresh ,setErrorMessage}) {
     const [editHouse, setEditHouse] = useState(false)
     // const [refresh, setRefresh] = useState(false);
     const [inputs, setInputs] = useState({});
+
+    useEffect(() => {
+        const getData = async () => {
+            await homeFacade.getAllHomes((data) => {
+                setHouseData(data)
+            }, setErrorMessage)
+        }
+        getData();
+        console.log(houseData);
+    }, [refresh]);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -21,12 +32,12 @@ function CreateRental({refresh, setRefresh ,setErrorMessage}) {
     }
 
 
-    let tenantList = tenantData.length > 0
-        && tenantData.map((item) => {
-            return (
-                <option key={item.id} value={item.id}>{item.id}</option>
-            )
-        }, this);
+    // let tenantList = tenantData.length > 0
+    //     && tenantData.map((item) => {
+    //         return (
+    //             <option key={item.id} value={item.id}>{item.id}</option>
+    //         )
+    //     }, this);
 
     let houseList = houseData.length > 0
         && houseData.map((item) => {
@@ -67,7 +78,7 @@ function CreateRental({refresh, setRefresh ,setErrorMessage}) {
                                    onChange={handleChange} name={"rentalContactPerson"}/></td>
                         <td><select name={"tenant"} onChange={handleChange}>
                             <option disabled={true} selected={true}>Choose tenant</option>
-                            {tenantList}
+                            {/*{tenantList}*/}
                         </select>
                             <p>or</p>
                             <button onClick={() => setEditTenant(!editTenant)}>add a new tenant</button>
@@ -102,6 +113,7 @@ function CreateRental({refresh, setRefresh ,setErrorMessage}) {
                                     "rentalDeposit": inputs.rentalDeposit,
                                     "rentalContactPerson": inputs.rentalContactPerson,
                                     "houseHouse": {
+                                        "id": inputs.house,
                                         "houseNumberOfRooms": inputs.houseNumberOfRooms,
                                         "address": {
                                             "streetAddress": inputs.streetAddress,
