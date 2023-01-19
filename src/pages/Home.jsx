@@ -21,7 +21,7 @@ function Home({loggedIn, setLoggedIn}) {
                 </tr>
                 <tr>
                     <td>GET</td>
-                    <td>/api/rentals/tenants/[id]</td>
+                    <td>/api/rentals/tenant/[id]</td>
                 </tr>
                 <tr>
                     <td>GET</td>
