@@ -17,7 +17,7 @@ function Home({loggedIn, setLoggedIn}) {
                 </tr>
                 <tr>
                     <td>GET</td>
-                    <td>api/rentals/houses</td>
+                    <td>/api/rentals/houses</td>
                 </tr>
                 <tr>
                     <td>GET</td>
@@ -25,15 +25,15 @@ function Home({loggedIn, setLoggedIn}) {
                 </tr>
                 <tr>
                     <td>GET</td>
-                    <td>/api/[id]</td>
+                    <td>/api/rentals/[id]</td>
                 </tr>
                 <tr>
                     <td>POST</td>
-                    <td>api/rentals</td>
+                    <td>/api/rentals</td>
                 </tr>
                 <tr>
                     <td>PUT</td>
-                    <td>api/rentals</td>
+                    <td>/api/rentals</td>
                 </tr>
                 <tr>
                     <td>DELETE</td>
